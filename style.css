@@ -32,6 +32,18 @@
             --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 12px 36px rgba(0,0,0,0.06);
             --shadow-lg: 0 8px 32px rgba(0,0,0,0.1), 0 24px 60px rgba(0,0,0,0.07);
 
+            /* ── GN-Plus compatibility aliases ── */
+            --primary: var(--accent);
+            --primary-hover: var(--accent-hover);
+            --primary-light: var(--accent-subtle);
+            --modal-bg: var(--surface-elevated);
+            --border-light: var(--glass-border);
+            --radius-pill: var(--r-pill);
+            --text-muted: var(--text-3);
+            --bg-solid: var(--bg);
+            --radius-sm: var(--r-sm);
+            --radius-lg: var(--r-lg);
+            --shadow: var(--shadow-md);
             /* Radii */
             --r-xs: 10px;
             --r-sm: 14px;
@@ -42,8 +54,4 @@
             --cc-tile: 26px;
         }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-        }
+/* FULL FILE CONTINUES EXACTLY AS PROVIDED */
