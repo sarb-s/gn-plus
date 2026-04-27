@@ -1,0 +1,49 @@
+:root {
+            /* Accent — set dynamically via JS */
+            --accent: #007AFF;
+            --accent-hover: #0062cc;
+            --accent-subtle: rgba(0,122,255,0.12);
+            --accent-glow: rgba(0,122,255,0.07);
+
+            /* Surfaces */
+            --bg: #f5f5f7;
+            --surface: rgba(255,255,255,0.62);
+            --surface-solid: #ffffff;
+            --surface-elevated: rgba(255,255,255,0.84);
+
+            /* Glass details */
+            --glass-border: rgba(255,255,255,0.80);
+            --glass-highlight: rgba(255,255,255,1);
+            --blur: blur(56px) saturate(2.6) brightness(1.06);
+
+            /* Text */
+            --text: #1c1c1e;
+            --text-2: #48484a;
+            --text-3: #8e8e93;
+            --text-4: #aeaeb2;
+
+            /* Borders */
+            --border: rgba(0,0,0,0.07);
+            --border-strong: rgba(0,0,0,0.12);
+
+            /* Shadows */
+            --shadow-xs: 0 1px 3px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.04);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06), 0 6px 20px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 12px 36px rgba(0,0,0,0.06);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.1), 0 24px 60px rgba(0,0,0,0.07);
+
+            /* Radii */
+            --r-xs: 10px;
+            --r-sm: 14px;
+            --r-md: 18px;
+            --r-lg: 22px;
+            --r-xl: 28px;
+            --r-pill: 400px;
+            --cc-tile: 26px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
