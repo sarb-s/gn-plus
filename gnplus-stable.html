@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <!-- UPDATE v2.0 -->
     <base href="https://cdn.jsdelivr.net/gh/freebuisness/freebuisness.github.io@main/">
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
@@ -2198,8 +2197,7 @@
                 Object.entries(b.localStorage).forEach(([k,v]) => localStorage.setItem(k,v));
                 if (b.sessionStorage) Object.entries(b.sessionStorage).forEach(([k,v]) => sessionStorage.setItem(k,v));
                 if (b.cookies) Object.entries(b.cookies).forEach(([k,v]) => { document.cookie = `${k}=${v};path=/`; });
-                alert('Restored! Reloading…');
-                location.reload();
+                alert('Data restored! Please close and reopen this tab to apply your changes.');
             } catch(err) { alert('Import failed: ' + err.message); }
         };
         reader.readAsText(file);
