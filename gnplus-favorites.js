@@ -22,7 +22,8 @@
             display: flex; align-items: center; justify-content: center;
             cursor: pointer;
             color: #fff;
-            opacity: 0.4;
+            opacity: 0;
+            pointer-events: none;
             filter: drop-shadow(0 1px 2px rgba(0,0,0,0.55));
             transition: opacity 0.15s ease, transform 0.15s ease, color 0.15s ease;
             outline: none;
@@ -36,10 +37,10 @@
             display: block;
             pointer-events: none;
         }
-        .zone-item:hover .fav-heart, .game-btn:hover .fav-heart { opacity: 0.9; }
+        .zone-item:hover .fav-heart, .game-btn:hover .fav-heart { opacity: 0.9; pointer-events: auto; }
         .fav-heart:hover { opacity: 1; transform: scale(1.15); }
-        .fav-heart:focus-visible { opacity: 1; box-shadow: 0 0 0 2px var(--accent, #6366f1); border-radius: 50%; }
-        .fav-heart.on { color: var(--accent, #6366f1); opacity: 1; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35)); }
+        .fav-heart:focus-visible { opacity: 1; pointer-events: auto; box-shadow: 0 0 0 2px var(--accent, #6366f1); border-radius: 50%; }
+        .fav-heart.on { color: var(--accent, #6366f1); filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35)); }
         .fav-heart.on svg { fill: currentColor; }
     `;
     document.head.appendChild(style);
