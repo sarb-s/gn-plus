@@ -1,5 +1,5 @@
 /* GN Plus — favorites add-on
-   Adds a star to every game card and pins starred games to the top.
+   Adds a heart to every game card and pins favorited games to the top.
    Self-contained: doesn't touch gnplus-stable.js. Stored in localStorage ("gnFavorites"). */
 (function () {
     'use strict';
@@ -8,9 +8,9 @@
     const container = document.getElementById('container');
     if (!container) return;
 
-    const STAR_SVG =
+    const HEART_SVG =
         '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-        '<path d="M12 2.5l2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 17.5 6.1 20.7l1.2-6.6L2.5 9.5l6.6-.9z"/></svg>';
+        '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
 
     function load() {
         try { return new Set(JSON.parse(localStorage.getItem(KEY) || '[]')); }
@@ -28,13 +28,13 @@
     const nameOf = el => ((el.querySelector('.card-name') || el).textContent || '').trim();
     const keyOf = el => providerName() + '::' + nameOf(el);
 
-    function makeStar(card) {
-        const star = document.createElement('span');
-        star.className = 'fav-star';
-        star.setAttribute('role', 'button');
-        star.tabIndex = 0;
-        star.title = 'Favorite';
-        star.innerHTML = STAR_SVG;
+    function makeHeart(card) {
+        const heart = document.createElement('span');
+        heart.className = 'fav-heart';
+        heart.setAttribute('role', 'button');
+        heart.tabIndex = 0;
+        heart.title = 'Add to favorites';
+        heart.innerHTML = HEART_SVG;
 
         const toggle = e => {
             e.preventDefault();
@@ -44,14 +44,14 @@
             save();
             schedule();
         };
-        star.addEventListener('click', toggle);
-        star.addEventListener('keydown', e => {
+        heart.addEventListener('click', toggle);
+        heart.addEventListener('keydown', e => {
             if (e.key === 'Enter' || e.key === ' ') toggle(e);
         });
         // keep the card's own mousedown/touch handlers from firing too
-        star.addEventListener('mousedown', e => e.stopPropagation());
-        card.appendChild(star);
-        return star;
+        heart.addEventListener('mousedown', e => e.stopPropagation());
+        card.appendChild(heart);
+        return heart;
     }
 
     function sync() {
@@ -59,12 +59,12 @@
 
         const list = cards();
         list.forEach(card => {
-            const star = card.querySelector(':scope > .fav-star') || makeStar(card);
+            const heart = card.querySelector(':scope > .fav-heart') || makeHeart(card);
             const on = favs.has(keyOf(card));
             card.classList.toggle('is-fav', on);
-            star.classList.toggle('on', on);
-            star.setAttribute('aria-pressed', on ? 'true' : 'false');
-            star.title = on ? 'Remove from favorites' : 'Add to favorites';
+            heart.classList.toggle('on', on);
+            heart.setAttribute('aria-pressed', on ? 'true' : 'false');
+            heart.title = on ? 'Remove from favorites' : 'Add to favorites';
         });
 
         // Stable pin: favorites first, everything else keeps its current order

@@ -692,12 +692,12 @@ section { margin-bottom: 3.5rem; }
 /* ─── FAVORITES ─── */
 .zone-item, .game-btn { position: relative; }
 
-.fav-star {
+.fav-heart {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: 0.9rem;
+    left: 0.9rem;
     z-index: 5;
-    width: 30px; height: 30px;
+    width: 26px; height: 26px;
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     cursor: pointer;
@@ -708,33 +708,35 @@ section { margin-bottom: 3.5rem; }
     color: #fff;
     opacity: 0;
     transform: scale(0.88);
-    transition: opacity 0.15s ease, transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+    transition: opacity 0.15s ease, transform 0.15s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
     outline: none;
 }
-.fav-star svg {
-    width: 15px; height: 15px;
+.fav-heart svg {
+    width: 13px; height: 13px;
     fill: none;
     stroke: currentColor;
-    stroke-width: 2;
+    stroke-width: 2.2;
     transition: fill 0.15s ease;
 }
-.zone-item:hover .fav-star,
-.game-btn:hover .fav-star,
-.fav-star:focus-visible,
-.fav-star.on { opacity: 1; transform: scale(1); }
+.zone-item:hover .fav-heart,
+.game-btn:hover .fav-heart,
+.fav-heart:focus-visible,
+.fav-heart.on { opacity: 1; transform: scale(1); }
 
-.fav-star:hover { background: rgba(10,10,12,0.8); transform: scale(1.1); }
-.fav-star:focus-visible { box-shadow: 0 0 0 3px var(--accent-subtle); }
-.fav-star.on { color: #ffc83d; }
-.fav-star.on svg { fill: currentColor; }
+.fav-heart:hover { background: rgba(10,10,12,0.8); transform: scale(1.12); }
+.fav-heart:focus-visible { box-shadow: 0 0 0 3px var(--accent-subtle); }
 
-/* Touch devices have no hover, so keep the star visible */
+/* Favorited: heart takes the accent color */
+.fav-heart.on { color: var(--accent); border-color: var(--accent); }
+.fav-heart.on svg { fill: currentColor; }
+
+/* Touch devices have no hover, so keep the heart visible */
 @media (hover: none) {
-    .fav-star { opacity: 1; transform: scale(1); }
+    .fav-heart { opacity: 1; transform: scale(1); }
 }
 
 .zone-item.is-fav,
-.game-btn.is-fav { border-color: color-mix(in srgb, #ffc83d 55%, var(--border)); }
+.game-btn.is-fav { border-color: var(--accent); }
 
 /* Footer */
 .page-footer {
