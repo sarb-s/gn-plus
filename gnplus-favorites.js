@@ -1,5 +1,5 @@
 /* GN Plus — favorites add-on
-   Adds a heart to every game card and pins favorited games to the top.
+   Adds a heart to every game card and shows favorited games in a section above All Experiences.
    Self-contained: doesn't touch gnplus-stable.js. Stored in localStorage ("gnFavorites"). */
 (function () {
     'use strict';
@@ -8,11 +8,32 @@
     const container = document.getElementById('container');
     if (!container) return;
 
+    const section = document.createElement('section');
+    section.id = 'favoritesSection';
+    section.hidden = true;
+    section.setAttribute('aria-labelledby', 'favoritesTitle');
+    section.innerHTML = '<div class="hero-row"><h2 class="section-title" id="favoritesTitle">Favorites</h2></div><div id="favoritesContainer"></div>';
+    container.closest('section').before(section);
+    const favoritesContainer = section.querySelector('#favoritesContainer');
+
     // Styles are injected here (not in the CSS file) so the heart is always sized correctly,
     // even if the stylesheet is stale in the CDN cache.
     const style = document.createElement('style');
     style.id = 'gn-fav-style';
     style.textContent = `
+        #favoritesSection[hidden] { display: none; }
+        #favoritesContainer {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.25rem;
+            align-items: stretch;
+        }
+        @media (max-width: 860px) {
+            #favoritesContainer { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.9rem; }
+        }
+        @media (max-width: 520px) {
+            #favoritesContainer { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 0.75rem; }
+        }
         .zone-item, .game-btn { position: relative; }
         .fav-heart {
             position: absolute;
@@ -104,11 +125,23 @@
             heart.title = on ? 'Remove from favorites' : 'Add to favorites';
         });
 
-        // Stable pin: favorites first, everything else keeps its current order
-        const desired = list.filter(c => c.classList.contains('is-fav'))
-            .concat(list.filter(c => !c.classList.contains('is-fav')));
-        const changed = desired.some((c, i) => c !== list[i]);
-        if (changed) desired.forEach(c => container.appendChild(c));
+        // Keep the catalog order and create shortcuts with the same game action.
+        const favorites = list.filter(card => favs.has(keyOf(card)));
+        favoritesContainer.replaceChildren();
+        favorites.forEach(card => {
+            const shortcut = card.cloneNode(true);
+            shortcut.querySelector(':scope > .fav-heart')?.remove();
+            shortcut.style.animationDelay = '0s';
+            shortcut.onclick = () => card.click();
+            makeHeart(shortcut);
+            const heart = shortcut.querySelector(':scope > .fav-heart');
+            shortcut.classList.add('is-fav');
+            heart.classList.add('on');
+            heart.setAttribute('aria-pressed', 'true');
+            heart.title = 'Remove from favorites';
+            favoritesContainer.appendChild(shortcut);
+        });
+        section.hidden = favorites.length === 0;
 
         observer.observe(container, { childList: true });
     }
