@@ -689,55 +689,6 @@ section { margin-bottom: 3.5rem; }
 }
 .btn-save:hover { background: var(--accent-hover); box-shadow: 0 4px 16px var(--accent-glow); }
 
-/* ─── FAVORITES ─── */
-.zone-item, .game-btn { position: relative; }
-
-.fav-heart {
-    position: absolute;
-    top: 0.9rem;
-    left: 0.9rem;
-    z-index: 5;
-    width: 26px; height: 26px;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    background: rgba(10,10,12,0.55);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255,255,255,0.14);
-    color: #fff;
-    opacity: 0;
-    transform: scale(0.88);
-    transition: opacity 0.15s ease, transform 0.15s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-    outline: none;
-}
-.fav-heart svg {
-    width: 13px; height: 13px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2.2;
-    transition: fill 0.15s ease;
-}
-.zone-item:hover .fav-heart,
-.game-btn:hover .fav-heart,
-.fav-heart:focus-visible,
-.fav-heart.on { opacity: 1; transform: scale(1); }
-
-.fav-heart:hover { background: rgba(10,10,12,0.8); transform: scale(1.12); }
-.fav-heart:focus-visible { box-shadow: 0 0 0 3px var(--accent-subtle); }
-
-/* Favorited: heart takes the accent color */
-.fav-heart.on { color: var(--accent); border-color: var(--accent); }
-.fav-heart.on svg { fill: currentColor; }
-
-/* Touch devices have no hover, so keep the heart visible */
-@media (hover: none) {
-    .fav-heart { opacity: 1; transform: scale(1); }
-}
-
-.zone-item.is-fav,
-.game-btn.is-fav { border-color: var(--accent); }
-
 /* Footer */
 .page-footer {
     text-align: left;

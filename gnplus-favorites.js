@@ -8,8 +8,44 @@
     const container = document.getElementById('container');
     if (!container) return;
 
+    // Styles are injected here (not in the CSS file) so the heart is always sized correctly,
+    // even if the stylesheet is stale in the CDN cache.
+    const style = document.createElement('style');
+    style.id = 'gn-fav-style';
+    style.textContent = `
+        .zone-item, .game-btn { position: relative; }
+        .fav-heart {
+            position: absolute;
+            top: 14px; left: 14px;
+            z-index: 5;
+            width: 20px; height: 20px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            color: #fff;
+            opacity: 0.4;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.55));
+            transition: opacity 0.15s ease, transform 0.15s ease, color 0.15s ease;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .fav-heart svg {
+            width: 16px; height: 16px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.2;
+            display: block;
+            pointer-events: none;
+        }
+        .zone-item:hover .fav-heart, .game-btn:hover .fav-heart { opacity: 0.9; }
+        .fav-heart:hover { opacity: 1; transform: scale(1.15); }
+        .fav-heart:focus-visible { opacity: 1; box-shadow: 0 0 0 2px var(--accent, #6366f1); border-radius: 50%; }
+        .fav-heart.on { color: var(--accent, #6366f1); opacity: 1; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35)); }
+        .fav-heart.on svg { fill: currentColor; }
+    `;
+    document.head.appendChild(style);
+
     const HEART_SVG =
-        '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+        '<svg viewBox="0 0 24 24" width="16" height="16" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
         '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
 
     function load() {
