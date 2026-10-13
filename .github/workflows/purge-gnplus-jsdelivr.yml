@@ -1,0 +1,22 @@
+name: One-time GN Plus jsDelivr purge
+on:
+  push:
+    paths:
+      - '.github/workflows/purge-gnplus-jsdelivr.yml'
+jobs:
+  purge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Purge GN Plus CDN paths
+        shell: bash
+        run: |
+          set -euo pipefail
+          for asset in gnplus-stable.html gnplus-stable.css gnplus-stable.js gnplus-favorites.js; do
+            url="https://purge.jsdelivr.net/gh/sarb-s/gn-plus@latest/$asset"
+            echo "Purging $url"
+            curl --fail --show-error --silent --max-time 30 "$url"
+            echo
+          done
+          echo "Purging @main HTML"
+          curl --fail --show-error --silent --max-time 30 "https://purge.jsdelivr.net/gh/sarb-s/gn-plus@main/gnplus-stable.html"
+          echo
