@@ -683,6 +683,9 @@
                 zoneFrame.contentDocument.open();
                 zoneFrame.contentDocument.write(stripped);
                 zoneFrame.contentDocument.close();
+                try {
+                    zoneFrame.contentDocument.addEventListener('contextmenu', event => event.preventDefault(), true);
+                } catch(e){}
                 try { zoneFrame.contentWindow.addEventListener('keydown', handleEsc); } catch(e){}
                 showViewer(file);
                 startPillThemePolling();
