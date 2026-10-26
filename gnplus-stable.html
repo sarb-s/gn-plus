@@ -50,7 +50,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.staticdelivr.com/gh/sarb-s/gn-plus/main/gnplus-stable.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sarb-s/gn-plus@main/gnplus-stable.css?v=20261026-cache-reset">
 </head>
 
 <body>
@@ -220,10 +220,20 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.staticdelivr.com/gh/sarb-s/gn-plus/main/gnplus-stable.js"></script>
-    <script src="https://cdn.staticdelivr.com/gh/sarb-s/gn-plus/main/gnplus-favorites.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/sarb-s/gn-plus@main/gnplus-stable.js?v=20261026-cache-reset"></script>
+    <script src="https://cdn.jsdelivr.net/gh/sarb-s/gn-plus@main/gnplus-favorites.js?v=20261026-cache-reset"></script>
     <script>
-        navigator.serviceWorker.register(location.protocol + '//' + location.hostname + '/sw.js');
+        // Clear stale GN Plus offline caches and old service worker registrations.
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations()
+                .then(registrations => Promise.all(registrations.map(registration => registration.unregister())))
+                .catch(() => {});
+        }
+        if ('caches' in window) {
+            caches.keys()
+                .then(cacheNames => Promise.all(cacheNames.map(cacheName => caches.delete(cacheName))))
+                .catch(() => {});
+        }
     </script>
 </body>
 </html>
